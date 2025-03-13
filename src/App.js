@@ -1,34 +1,63 @@
 import logo from './logo.svg';
 import './App.css';
 
-function Header(){
+// Header
+function Header(props){
+  console.log('props: ', props, props.title);
   return <header>
-  <h1><a href='/'>WEB</a></h1>
+  <h1><a href='/' onClick={event=>{
+    event.preventDefault();
+    props.onChangeMode();
+  }}>{props.title}</a></h1>
 </header>
 }
-function Nav(){
+
+// Nav
+function Nav(props){
+  const list = [];
+  for(let i=0; i<props.topics.length; i++){
+    let temp = props.topics[i];
+    list.push(<li key={temp.id}>
+      <a id={temp.id} href={'/read/'+temp.id} onClick={event=>{
+        event.preventDefault();
+        props.onChangeMode(event.target.id);
+      }
+      }>{temp.title}</a>
+      </li>)
+  }
+
   return <nav>
   <ol>
-    <li><a href='/read/1'>html</a></li>
-    <li><a href='/read/2'>css</a></li>
-    <li><a href='/read/3'>js</a></li>
+    {list}
   </ol>
 </nav>
 }
-function Article(){
+
+function Article(props){
   return <article>
-  <h2>Welcome</h2>
-  Hello, WEB
+  <h2>{props.title}</h2>
+  {props.body}
 </article>
 }
 
 function App() {
+  const topics = [
+    {id:1, title:'html', body:'html is...'},
+    {id:2, title:'css', body:'css is...'},
+    {id:3, title:'javascript', body:'javascript is...'}
+  ]
   return (
     <div>
-      <Header></Header>
-      <Nav></Nav>
-      <Article></Article>
+      <Header title="REACT" onChangeMode={()=>{
+        alert('React');
+      }}></Header>
+      <Nav topics={topics} onChangeMode={(id)=>{
+        alert(id);
+      }
+      }></Nav>
+      <Article title="Welcome" body="Hello, WEB"></Article>
     </div>
+    // <img src="logo" width="100" height="100"/>
   );
 }
 
