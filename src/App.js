@@ -21,7 +21,7 @@ function Nav(props){
     list.push(<li key={temp.id}>
       <a id={temp.id} href={'/read/'+temp.id} onClick={event=>{
         event.preventDefault();
-        props.onChangeMode(event.target.id);
+        props.onChangeMode(Number(event.target.id));
       }
       }>{temp.title}</a>
       </li>)
@@ -50,20 +50,29 @@ function App() {
   ]
 
   const [mode, setMode] = useState('Welcome');
-  let content = null;
+  const [id, setId] = useState(null);
 
+  let content = null;
   if(mode === 'Welcome'){
     content = <Article title="Welcome" body="hello, WEB"></Article>
   }else if(mode === 'Read'){
-    content = <Article title="Read" body="hello, Read"></Article>
+    let title, body = null;
+    for(let i=0; i<topics.length; i++){
+      if(topics[i].id === id){
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
+    content = <Article title={title} body={body}></Article>
   }
   return (
     <div>
       <Header title="REACT" onChangeMode={()=>{
         setMode('Welcome');
       }}></Header>
-      <Nav topics={topics} onChangeMode={(id)=>{
+      <Nav topics={topics} onChangeMode={(_id)=>{
         setMode('Read');
+        setId(_id);
       }
       }></Nav>
       {content}
