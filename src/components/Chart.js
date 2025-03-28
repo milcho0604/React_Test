@@ -8,15 +8,11 @@ import {
   Legend
 } from 'chart.js';
 
-// chart.js에서 사용하고자 하는 요소(ArcElement 등) 등록
-ChartJS.register(
-  ArcElement,
-  Tooltip,
-  Legend
-);
+// chart.js에서 사용하고자 하는 요소 등록
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DonutChart = () => {
-  // 임의 데이터 (예: 각 상태별 과제 수)
+  // 임의 데이터
   const data = {
     labels: ['Not Started', 'In Progress', 'Completed', 'On Hold'],
     datasets: [
@@ -34,19 +30,30 @@ const DonutChart = () => {
     ],
   };
 
-  // 차트 옵션
+  // 차트 옵션 (툴팁에 퍼센트 표시)
   const options = {
     responsive: true,
-    maintainAspectRatio: false, 
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'bottom',
       },
       tooltip: {
         enabled: true,
+        callbacks: {
+          label: function (context) {
+            const label = context.label || '';
+            const value = context.parsed || 0;
+            // 모든 데이터의 합
+            const total = context.dataset.data.reduce((acc, cur) => acc + cur, 0);
+            // 퍼센트 계산
+            const percentage = ((value / total) * 100).toFixed(2) + '%';
+            return `${label}: ${value} (${percentage})`;
+          },
+        },
       },
     },
-    cutout: '50%', // 도넛 형태를 위해 중앙을 잘라낼 비율
+    cutout: '50%', // 도넛 형태
   };
 
   return (
