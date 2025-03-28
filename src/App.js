@@ -6,6 +6,7 @@ import Board from "./components/Board";
 import ExchangeRateCalculator from "./components/ExchangeRateCalculator";
 import Header from "./headerComponent/Header";
 import Main from "./components/Main";
+import Chart from "./components/Chart";
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -36,6 +37,13 @@ const Navigation = () => {
       >
         테스트
       </button>
+
+      <button
+        onClick={() => navigate("/chart")}
+        className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded transition"
+      >
+        차트
+      </button>
     </nav>
   );
 };
@@ -50,6 +58,7 @@ function App() {
         <Route path="/exchange" element={<ExchangeRateCalculator />} />
         <Route path="/board" element={<Board />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/chart" element={<Chart />} />
       </Routes>
     </Router>
   );
