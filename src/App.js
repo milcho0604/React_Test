@@ -7,6 +7,7 @@ import ExchangeRateCalculator from "./components/ExchangeRateCalculator";
 import Header from "./headerComponent/Header";
 import Main from "./components/Main";
 import Chart from "./components/Chart";
+import Slm from "./components/Slm"
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -44,6 +45,13 @@ const Navigation = () => {
       >
         차트
       </button>
+
+      <button
+        onClick={() => navigate("/slm")}
+        className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded transition"
+      >
+        SLM
+      </button>
     </nav>
   );
 };
@@ -59,6 +67,7 @@ function App() {
         <Route path="/board" element={<Board />} />
         <Route path="/test" element={<Test />} />
         <Route path="/chart" element={<Chart />} />
+        <Route path="/slm" element={<Slm />} />
       </Routes>
     </Router>
   );
