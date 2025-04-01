@@ -45,7 +45,6 @@ const Navigation = () => {
       >
         차트
       </button>
-
       <button
         onClick={() => navigate("/slm")}
         className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded transition"

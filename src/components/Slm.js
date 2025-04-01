@@ -1,5 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle, XCircle } from "lucide-react";
+// import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "./ui/card";
+import { CheckCircle, XCircle, ArrowRight } from "lucide-react";
 
 const processSteps = [
   {
@@ -31,24 +32,31 @@ const processSteps = [
 
 export default function IndicatorProcessFlow() {
   return (
-    <div className="max-w-2xl mx-auto p-6 space-y-4">
-      <h2 className="text-2xl font-bold mb-4">지표 수집 실행 프로세스</h2>
-      <div className="space-y-4">
-        {processSteps.map((step, index) => (
-          <Card key={index} className="flex items-start p-4 gap-4">
-            <div className="mt-1">
-              {step.status === "success" ? (
-                <CheckCircle className="text-green-500" />
-              ) : (
-                <XCircle className="text-red-500" />
+    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+      <div className="max-w-6xl w-full p-6 bg-white rounded-xl shadow-md">
+        <h2 className="text-2xl font-bold mb-8 text-center">지표 수집 실행 프로세스</h2>
+        <div className="flex flex-row items-start justify-start space-x-4 overflow-x-auto px-2">
+          {processSteps.map((step, index) => (
+            <div key={index} className="flex flex-col items-center">
+              <Card className="flex flex-col items-center w-48 p-4 gap-2 border border-gray-200 bg-white shadow-sm rounded-lg min-w-[180px]">
+                <div>
+                  {step.status === "success" ? (
+                    <CheckCircle className="text-green-500 w-6 h-6" />
+                  ) : (
+                    <XCircle className="text-red-500 w-6 h-6" />
+                  )}
+                </div>
+                <CardContent className="p-0 text-center">
+                  <div className="font-semibold text-base mt-2">{step.title}</div>
+                  <div className="text-sm text-gray-600 mt-1">{step.detail}</div>
+                </CardContent>
+              </Card>
+              {index !== processSteps.length - 1 && (
+                <ArrowRight className="text-gray-400 w-5 h-5 mt-2" />
               )}
             </div>
-            <CardContent className="p-0">
-              <div className="font-semibold text-lg">{step.title}</div>
-              <div className="text-sm text-gray-600">{step.detail}</div>
-            </CardContent>
-          </Card>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
