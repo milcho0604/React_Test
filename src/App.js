@@ -8,6 +8,7 @@ import Header from "./headerComponent/Header";
 import Main from "./components/Main";
 import Chart from "./components/Chart";
 import Slm from "./components/Slm"
+import Pivot from "./components/Pivot";
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -51,6 +52,13 @@ const Navigation = () => {
       >
         SLM
       </button>
+
+      <button
+        onClick={() => navigate("/pivot")}
+        className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded transition"
+      >
+        피벗
+      </button>
     </nav>
   );
 };
@@ -67,6 +75,7 @@ function App() {
         <Route path="/test" element={<Test />} />
         <Route path="/chart" element={<Chart />} />
         <Route path="/slm" element={<Slm />} />
+        <Route path="/pivot" element={<Pivot />} />
       </Routes>
     </Router>
   );
